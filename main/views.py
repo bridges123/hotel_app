@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpRequest, JsonResponse
 
+from . import utils
 
-def index(request: HttpRequest) -> JsonResponse:
-    return JsonResponse({
-        'status': 200,
-        'error': False,
-        'message': 'Some message'
-    })
+
+def index(request: HttpRequest):
+    context = {
+        'rooms': utils.get_free_rooms()
+    }
+    return render(request, 'main/index.html', context=context)
